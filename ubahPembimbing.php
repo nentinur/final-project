@@ -1,18 +1,22 @@
 <?php
 require 'function.php';
-$id = $_GET['id'];
+$id = $_GET['id']; // ambil id_pembimbing
+// ambil data pembimbing berdasarkan id_pembimbing
 $pembimbing = query("SELECT * FROM pembimbing WHERE id_pembimbing = $id")[0];
 
-$judul = 'Ubah Data Pembimbing';
-include('layout/header.php');
+$judul = 'Ubah Data Pembimbing'; // judul halaman
+include('layout/header.php'); // panggil layout header
 
+// jika tombol simpan di-klik, maka tampilkan pesan:
 if (isset($_POST['ubahPembimbing'])) {
     if (ubahPembimbing($_POST) > 0) { ?>
+        <!-- Alert sukses - jika data berhasil diubah di database -->
         <div class="alert alert-success" role="alert">
             Data Berhasil diubah!
             <a href="pembimbing.php" class="btn btn-outline-success btn-sm ms-3">Ok</a>
         </div>
     <?php } else { ?>
+        <!-- Alert gagal jika data gagal diubah di database -->
         <div class="alert alert-danger" role="alert">
             Data Gagal diubah!
         </div>
@@ -68,4 +72,5 @@ if (isset($_POST['ubahPembimbing'])) {
         <button type="submit" class="btn btn-primary" name="ubahPembimbing">Simpan</button>
     </div>
 </form>
-<?php include('layout/footer.php'); ?>
+<?php include('layout/footer.php'); // panggil layout footer 
+?>

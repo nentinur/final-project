@@ -1,23 +1,28 @@
 <?php
 require 'function.php';
+// ambil data santri dan kelas
 $santri = query("SELECT santri.*, pembimbing.kode_kelas FROM santri INNER JOIN pembimbing ON santri.id_pembimbing = pembimbing.id_pembimbing");
+// ambil data pembimbing
 $pembimbing = query("SELECT * FROM pembimbing");
 
-$judul = 'Data Santri';
-include('layout/header.php');
+$judul = 'Data Santri'; // judul halaman
+include('layout/header.php'); // panggil layout header
 
+// jika tombol simpan di-klik maka tampilkan pesan:
 if (isset($_POST['tambah'])) {
     if (tambah($_POST) > 0) { ?>
+        <!-- Alert sukses - jika data berhasil ditambahkan ke database -->
         <div class="alert alert-success" role="alert">
             Data Berhasil ditambahkan!
         </div>
     <?php } else { ?>
+        <!-- Alert gagal - jika gagal ditambahkan ke database -->
         <div class="alert alert-danger" role="alert">
             Data Gagal ditambahkan!
         </div>
 <?php }
 } ?>
-<!-- Modal -->
+<!-- Modal input data santri baru -->
 <button type="button" class="btn btn-primary btn-sm mt-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
     Tambah Data Santri
 </button>
@@ -123,4 +128,5 @@ if (isset($_POST['tambah'])) {
         <?php endforeach; ?>
     </tbody>
 </table>
-<?php include('layout/footer.php'); ?>
+<?php include('layout/footer.php'); // panggil layout footer 
+?>

@@ -1,26 +1,32 @@
 <?php
 require 'function.php';
+// ambil data santri dari table santri dan data kelas santri dari tabel pembimbing
 $santri = query("SELECT santri.*, pembimbing.kode_kelas FROM santri INNER JOIN pembimbing ON santri.id_pembimbing = pembimbing.id_pembimbing");
+// ambil data setoran santri
 $setoran = query("SELECT santri.*, setoran.* FROM santri INNER JOIN setoran ON santri.id_santri = setoran.id_santri");
+// ambil data surat
 $surat = query("SELECT * FROM surat");
 
-$judul = 'Data Setoran santri';
-include('layout/header.php');
+$judul = 'Data Setoran santri'; // judul halaman
+include('layout/header.php'); // panggil layout header
 
+// jika tombol Simpan di-klik maka munculkan pesan:
 if (isset($_POST['tambahSetoran'])) {
     if (tambahSetoran($_POST) > 0) {
         if (tambahItem($_POST) > 0) { ?>
+            <!-- Alert sukses - jika data berhasil dimasukkan ke database -->
             <div class="alert alert-success" role="alert">
                 Data Berhasil ditambahkan!
             </div>
         <?php }
     } else { ?>
+        <!-- Alert gagal - jika data gagal ditambahkan ke database -->
         <div class="alert alert-danger" role="alert">
             Data Gagal ditambahkan!
         </div>
 <?php }
 } ?>
-<!-- Modal -->
+<!-- Modal input data setoran baru -->
 <button type="button" class="btn btn-primary btn-sm mt-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
     Tambah Data Setoran
 </button>
@@ -80,6 +86,7 @@ if (isset($_POST['tambahSetoran'])) {
                             <input type="datetime" class="form-control" id="waktu" name="waktu">
                         </div>
                     </div>
+                    <!-- Input keterangan -->
                     <div class="mb-3 row">
                         <label for="keterangan" class="col-sm-2 col-form-label">Keterangan</label>
                         <div class="col-sm-9">
@@ -121,12 +128,18 @@ if (isset($_POST['tambahSetoran'])) {
                 <td><?= $row['waktu']; ?></td>
                 <td>
                     <?php
+                    // tangkap data id_setoran
                     $idSetor = $row['id_setoran'];
+                    // id_ayat awal pada setoran terkahir
                     $min = query("SELECT MIN(id_ayat) FROM item_setoran WHERE id_setoran = $idSetor")[0]['MIN(id_ayat)'];
+                    // id_ayat akhir pada setoran serakhir
                     $max = query("SELECT MAX(id_ayat) FROM item_setoran WHERE id_setoran = $idSetor")[0]['MAX(id_ayat)'];
+                    // mengambil nama surat dan no ayat awal pada setoran terakhir
                     $awal = query("SELECT item_setoran.id_setoran, ayat_surat.*, surat.nama_surat FROM item_setoran INNER JOIN ayat_surat ON item_setoran.id_ayat = ayat_surat.id_ayat INNER JOIN surat ON ayat_surat.id_surat = surat.id_surat WHERE item_setoran.id_ayat = $min")[0];
+                    // mengambil nama surat dan no ayat akhir pada setoran terakhir
                     $akhir = query("SELECT item_setoran.id_setoran, ayat_surat.*, surat.nama_surat FROM item_setoran INNER JOIN ayat_surat ON item_setoran.id_ayat = ayat_surat.id_ayat INNER JOIN surat ON ayat_surat.id_surat = surat.id_surat WHERE item_setoran.id_ayat = $max")[0];
                     ?>
+                    <!-- tampilkan data surat dan ayat yang terakhir kali disetorkan -->
                     <?= $awal['nama_surat']; ?>:<?= $awal['no_ayat']; ?> - <?= $akhir['nama_surat']; ?>:<?= $akhir['no_ayat']; ?>
                 </td>
                 <td><?= $row['keterangan']; ?></td>
@@ -138,4 +151,5 @@ if (isset($_POST['tambahSetoran'])) {
         <?php endforeach; ?>
     </tbody>
 </table>
-<?php include('layout/footer.php'); ?>
+<?php include('layout/footer.php'); // panggil layout footer 
+?>

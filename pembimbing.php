@@ -1,22 +1,26 @@
 <?php
 require 'function.php';
+// ambil data pembimbing
 $pembimbing = query("SELECT * FROM pembimbing");
 
-$judul = 'Data Pembimbing';
-include('layout/header.php');
+$judul = 'Data Pembimbing'; // judul halaman
+include('layout/header.php'); // panggil layout header
 
+// jika tombol simpan di-klik, maka tampilkan pesan
 if (isset($_POST['tambahPembimbing'])) {
     if (tambahPembimbing($_POST) > 0) { ?>
+        <!-- Alert suskses - jika data berhasil ditambhkan ke database -->
         <div class="alert alert-success" role="alert">
             Data Berhasil ditambahkan!
         </div>
     <?php } else { ?>
+        <!-- Alert gagal - jika data gagal ditambahkan ke database -->
         <div class="alert alert-danger" role="alert">
             Data Gagal ditambahkan!
         </div>
 <?php }
 } ?>
-<!-- Modal -->
+<!-- Modal input data ppembimbing -->
 <button type="button" class="btn btn-primary btn-sm mt-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
     Tambah Data Pembimbing
 </button>
@@ -78,7 +82,7 @@ if (isset($_POST['tambahPembimbing'])) {
     </div>
 </div>
 
-<!-- Tabel Data Santri -->
+<!-- Tabel Data Pembimbing -->
 <table class="table">
     <thead>
         <tr>
@@ -109,4 +113,5 @@ if (isset($_POST['tambahPembimbing'])) {
         <?php endforeach; ?>
     </tbody>
 </table>
-<?php include('layout/footer.php'); ?>
+<?php include('layout/footer.php'); // panggil layout footer 
+?>
