@@ -22,10 +22,9 @@ include('layout/header.php'); // memanggil layout header
                     label: '',
                     data: [
                         // menampilkan jumlah ayat yang sudah disetorkan
-                        <?php foreach ($santri as $row) : ?> "
-                            <?php $id = $row['id_santri'];
-                            echo query("SELECT COUNT(item_setoran.id_ayat) FROM item_setoran INNER JOIN setoran ON setoran.id_setoran = item_setoran.id_setoran INNER JOIN santri ON setoran.id_santri = santri.id_santri WHERE santri.id_santri = $id")[0]['COUNT(item_setoran.id_ayat)'];
-                            ?> ",
+                        <?php foreach ($santri as $row) : ?> "<?php $id = $row['id_santri'];
+                                                                echo query("SELECT COUNT(item_setoran.id_ayat) FROM item_setoran INNER JOIN setoran ON setoran.id_setoran = item_setoran.id_setoran INNER JOIN santri ON setoran.id_santri = santri.id_santri WHERE santri.id_santri = $id")[0]['COUNT(item_setoran.id_ayat)'];
+                                                                ?> ",
                         <?php endforeach; ?>
                     ],
 
