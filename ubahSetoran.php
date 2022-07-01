@@ -84,7 +84,7 @@ if (isset($_POST['ubahSetoran'])) {
     <div class="mb-3 row mt-3">
         <label for="waktu" class="col-sm-2 col-form-label">Waktu</label>
         <div class="col-sm-9">
-            <input type="datetime-local" class="form-control" id="waktu" name="waktu" value="<?= date($setoranValue['waktu']); ?>">
+            <input type="datetime-local" class="form-control" id="waktu" name="waktu">
         </div>
     </div>
     <!-- Input keterangan -->

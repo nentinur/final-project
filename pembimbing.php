@@ -53,8 +53,8 @@ if (isset($_POST['tambahPembimbing'])) {
                         <label for="jk" class="col-sm-2 col-form-label">Jenis Kelamin</label>
                         <div class="col-sm-10">
                             <select name="jk" id="jk" class="form-select">
-                                <option value="0">Perempuan</option>
-                                <option value="1">Laki-Laki</option>
+                                <option value="Perempuan">Perempuan</option>
+                                <option value="Laki-Laki">Laki-Laki</option>
                             </select>
                         </div>
                     </div>
